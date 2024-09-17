@@ -25,7 +25,6 @@ const SearchGames = () => {
   const [saveGame] = useMutation(SAVE_GAME);
 
   // set up useEffect hook to save `savedGameIds` list to localStorage on component unmount
-  // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
     return () => saveGameIds(savedGameIds);
   });
