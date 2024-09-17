@@ -4,7 +4,7 @@ const typeDefs = `
     name: String
     email: String
     password: String
-    books: [String]
+    games: [String]
   }
 
   type Auth {
@@ -19,8 +19,8 @@ const typeDefs = `
   type Mutation {
     addUser(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    saveGame(userId: ID!, book: String!): User
-    removeGame(book: String!): User
+    saveGame(userId: ID!, game: String!): User
+    removeGame(game: String!): User
   }
 `;
 
