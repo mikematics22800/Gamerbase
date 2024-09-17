@@ -25,21 +25,21 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_GAME = gql`
-  mutation addBook($userId: ID!, $book: String!) {
-    addBook(userId: $userId, book: $book) {
+  mutation addGame($userId: ID!, $game: String!) {
+    addGame(userId: $userId, game: $game) {
       _id
       name
-      books
+      games
     }
   }
 `;
 
 export const REMOVE_GAME = gql`
-  mutation removeBook($book: String!) {
-    removeBook(book: $book) {
+  mutation removeGame($game: String!) {
+    removeGame(game: $game) {
       _id
       name
-      books
+      games
     }
   }
 `;

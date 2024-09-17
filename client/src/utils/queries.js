@@ -5,7 +5,7 @@ export const GET_ME = gql`
     me {
       _id
       name
-      books
+      games
     }
   }
 `;
