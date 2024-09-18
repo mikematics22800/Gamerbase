@@ -3,5 +3,5 @@ export const searchGames = ({query, platforms, genres}) => {
 };
 
 export const getGameDetail = ({query, platforms, genres}) => {
-  return fetch(`https://api.rawg.io/api/games/${gameId}?key=${import.meta.env.VITE_RAWG_API_KEY}`);
+  return fetch(`https://api.rawg.io/api/games/gameId?key=${import.meta.env.VITE_RAWG_API_KEY}`);
 };
