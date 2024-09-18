@@ -1,3 +1,5 @@
+// TO DO (Jean and Rashawn): add menu with options to filter games by platforms and genres listed in excel sheet
+// TO DO (Dave and Daved): edit gameData at line 51 to return name, image, platform, rating, genre, and description
 import { useState, useEffect } from 'react';
 import {
   Container,
