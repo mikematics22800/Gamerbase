@@ -47,13 +47,16 @@ const SearchGames = () => {
       }
 
       const { items } = await response.json();
+// TO DO (Dave and Daved): edit gameData at line 51 to return name, image, platform, rating, genre, and description
 
       const gameData = items.map((game) => ({
         gameId: game.id,
-        authors: game.volumeInfo.authors || ['No author to display'],
-        title: game.volumeInfo.title,
-        description: game.volumeInfo.description,
-        image: game.volumeInfo.imageLinks?.thumbnail || '',
+        name: game.name,
+        image: game.image,
+        platform: game.platform,
+        rating: game.rating,
+        genre: game.genre,
+        description: game.description
       }));
 
       setSearchedGames(gameData);
