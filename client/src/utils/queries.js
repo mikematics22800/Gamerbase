@@ -9,3 +9,14 @@ export const GET_ME = gql`
     }
   }
 `;
+
+export const SEARCH_GAMES = gql`
+  query searchGames($search: String!, $platforms: String, $genres: String) {
+    searchGames(search: $search, platforms: $platforms, genres: $genres) {
+      gameId
+      name
+      platforms
+      genres
+    }
+  }
+`;
