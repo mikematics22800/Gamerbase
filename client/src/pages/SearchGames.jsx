@@ -31,7 +31,7 @@ const SearchGames = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await searchGames({ query: searchInput, platforms: platformIds.toString(), genres: genreIds.toString() });
+      const response = await searchGames({ search: searchInput, platforms: platformIds.toString(), genres: genreIds.toString() });
       const data = await response.json();
       console.log(data);
     } catch (err) {
