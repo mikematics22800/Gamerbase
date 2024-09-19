@@ -5,6 +5,7 @@ import { saveGameIds, getSavedGameIds } from '../utils/localStorage';
 import { searchGames, getGameDetail } from '../utils/API';
 import { useMutation } from '@apollo/client';
 import { SAVE_GAME } from '../utils/mutations';
+import { formatDate } from '../utils/formatDate';
 
 const SearchGames = () => {
   // create state for holding returned google api data
@@ -28,12 +29,13 @@ const SearchGames = () => {
   }, [savedGameIds]);
 
   // create method to search for games and set state on form submit
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
     try {
       const response = await searchGames({ search: searchInput, platforms: platformIds.toString(), genres: genreIds.toString() });
       const data = await response.json();
       console.log(data);
+      setSearchedGames(data.results)
     } catch (err) {
       console.error(err);
     }
@@ -65,15 +67,15 @@ const SearchGames = () => {
     }
   };
 
-  const handleGenreChange = (event) => {
-    const value = event.target.value;
+  const handleGenreChange = (e) => {
+    const value = e.target.value;
     if (!genreIds.includes(value)) {
       setGenreIds([...genreIds, value]);
     }
   };
 
-  const handlePlatformChange = (event) => {
-    const value = event.target.value;
+  const handlePlatformChange = (e) => {
+    const value = e.target.value;
     if (!platformIds.includes(value)) {
       setPlatformIds([...platformIds, value]);
     }
@@ -83,7 +85,7 @@ const SearchGames = () => {
     <>
       <div className="text-light bg-dark p-5">
         <Container>
-          <h1>Search for Games!</h1>
+          <p>Search for Games!</p>
           <Form onSubmit={handleFormSubmit}>
             <Row>
               <Col xs={12} md={8}>
@@ -190,41 +192,41 @@ const SearchGames = () => {
           </Form>
         </Container>
       </div>
-      <Container>
-        <h2 className='pt-5'>
-          {searchedGames.length
-            ? `Viewing ${searchedGames.length} results:`
-            : 'Search for a game to begin'}
-        </h2>
-        <Row>
-          {searchedGames.map((game) => {
-            return (
-              <Col md="4" key={game.gameId}>
-                <Card border='dark'>
-                  {game.image ? (
-                    <Card.Img src={game.image} alt={`The cover for ${game.title}`} variant='top' />
-                  ) : null}
-                  <Card.Body>
-                    <Card.Title>{game.title}</Card.Title>
-                    <p className='small'>Authors: {game.authors}</p>
-                    <Card.Text>{game.description}</Card.Text>
-                    {Auth.loggedIn() && (
-                      <Button
-                        disabled={savedGameIds?.some((savedGameId) => savedGameId === game.gameId)}
-                        className='btn-block btn-info'
-                        onClick={() => handleSaveGame(game.gameId)}>
-                        {savedGameIds?.some((savedGameId) => savedGameId === game.gameId)
-                          ? 'This game has already been saved!'
-                          : 'Save this Game!'}
-                      </Button>
-                    )}
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
-      </Container>
+      <Row className='game-cards'>
+        {searchedGames?.map((game) => {
+          const platformList = game.platforms?.map((platform) => platform.platform.name).join(', ');
+          const genreList = game.genres?.map((genre) => genre.name).join(', ');
+          return (
+            <Col md="4" key={game.id}>
+              <Card border='dark' className='game-card'>
+                <Card.Img src={game.background_image} alt='box art' variant='top' className="game-card-img"/>
+                <Card.Body className="game-card-body">
+                  <h4>{game.name}</h4>
+                  <p>Released {formatDate(game.released)}</p>
+                  <div className='list'>
+                    <p>Platforms:&nbsp;</p>
+                    {platformList}
+                  </div>
+                  <div className='list'>
+                    <p>Genres:&nbsp;</p>
+                    {genreList}
+                  </div>
+                  {Auth.loggedIn() && (
+                    <Button
+                      disabled={savedGameIds?.some((savedGameId) => savedGameId === game.id)}
+                      className='btn-block btn-info'
+                      onClick={() => handleSaveGame(game.id)}>
+                      {savedGameIds?.some((savedGameId) => savedGameId === game.id)
+                        ? 'This game has already been saved!'
+                        : 'Save this Game!'}
+                    </Button>
+                  )}
+                </Card.Body>
+              </Card>
+            </Col>
+          );
+        })}
+      </Row>
     </>
   );
 };
