@@ -11,7 +11,7 @@ const gameSchema = new Schema({
     type: String,
     required: true,
   },
-  // saved game id from GoogleBooks
+  // saved game id from RAWG
   gameId: {
     type: String,
     required: true,
