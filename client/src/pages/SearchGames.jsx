@@ -8,7 +8,7 @@ import { SAVE_GAME } from '../utils/mutations';
 import { formatDate } from '../utils/formatDate';
 
 const SearchGames = () => {
-  // create state for holding returned RAWG api data
+  // create state for holding returned google api data
   const [searchedGames, setSearchedGames] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
