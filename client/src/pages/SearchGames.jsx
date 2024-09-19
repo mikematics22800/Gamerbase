@@ -51,6 +51,7 @@ const SearchGames = () => {
 
       const gameData = items.map((game) => ({
         gameId: game.id,
+        console.log(game.id);
         name: game.name,
         image: game.image,
         platform: game.platform,
