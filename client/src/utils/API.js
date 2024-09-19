@@ -1,7 +1,14 @@
-export const searchGames = ({query, platforms, genres}) => {
-  return fetch(`https://api.rawg.io/api/games?key=${import.meta.env.VITE_RAWG_API_KEY}&search=${query}&parent_platforms=${platforms}&genres=${genres}`);
+const key = import.meta.env.VITE_RAWG_API_KEY;
+
+export const searchGames = ({search, platforms, genres}) => {
+  let genre=''
+  if (genres.length > 0) {
+    genre = `&genres=${genres}`;
+
+  }
+  return fetch(`https://api.rawg.io/api/games?key=${key}&search=${search}&platforms=${platforms}${genre}`)
 };
 
-export const getGameDetail = ({query, platforms, genres}) => {
-  return fetch(`https://api.rawg.io/api/games/gameId?key=${import.meta.env.VITE_RAWG_API_KEY}`);
+export const getGameDetail = (gameId) => {
+  return fetch(`https://api.rawg.io/api/games/${gameId}?key=${key}`)
 };
