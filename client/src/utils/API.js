@@ -12,3 +12,7 @@ export const searchGames = ({search, platforms, genres}) => {
 export const getGameDetail = (gameId) => {
   return fetch(`https://api.rawg.io/api/games/${gameId}?key=${key}`)
 };
+
+
+
+

@@ -1,17 +1,46 @@
-body {
-  font-family: 'Rubik', sans-serif;
+*::-webkit-scrollbar {
+  width: 0;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Rubik Mono One', sans-serif;
+.game-cards {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
 }
 
-.small {
-  font-weight: 300;
-  font-style: italic;
+.game-card {
+  height: 500px;
+  width: 500px;
+  margin: 50px;
+}
+
+.game-card-img {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+}
+
+.game-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
+}
+
+.game-card h4 {
+  font-weight: bold;
+}
+
+.game-card p {
+  font-weight: bold;
+}
+
+.game-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.game-card .list {
+  display: flex;
 }
