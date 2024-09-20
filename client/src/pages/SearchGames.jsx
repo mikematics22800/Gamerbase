@@ -47,8 +47,7 @@ const SearchGames = () => {
     const gameToSave = searchedGames.find((game) => game.gameId === gameId);
 
     // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
+    const token = Auth.loggedIn() ? Auth.getToken() : '';
     if (!token) {
       return false;
     }
