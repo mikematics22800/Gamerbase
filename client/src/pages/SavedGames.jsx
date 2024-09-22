@@ -19,7 +19,6 @@ const SavedGames = () => {
   const {loading, data} = useQuery(GET_ME)
   const [removeGame] = useMutation(REMOVE_GAME);
 
-
   useEffect(() => {
     if (data) {
       setUserData(data);
@@ -27,7 +26,7 @@ const SavedGames = () => {
   }, [])
 
   // create function that accepts the game's mongo _id value as param and deletes the game from the database
-  const handleDeleteGame = async (gameId) => {
+  const handleDeleteGame = async (id) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -36,11 +35,11 @@ const SavedGames = () => {
 
     try {
       const user = await removeGame({
-        variables: { gameId }
+        variables: { id }
       });
       setUserData(user);
       // upon success, remove game's id from localStorage
-      removeGameId(gameId);
+      removeGameId(id);
     } catch (err) {
       console.error(err);
     }
@@ -67,14 +66,14 @@ const SavedGames = () => {
         <Row>
           {userData.savedGames.map((game) => {
             return (
-              <Col md="4">
-                <Card key={game.gameId} border='dark'>
+              <Col key={game.id} md="4">
+                <Card border='dark'>
                   {game.image ? <Card.Img src={game.image} alt={`The cover for ${game.title}`} variant='top' /> : null}
                   <Card.Body>
                     <Card.Title>{game.title}</Card.Title>
                     <p className='small'>Authors: {game.authors}</p>
                     <Card.Text>{game.description}</Card.Text>
-                    <Button className='btn-block btn-danger' onClick={() => handleDeleteGame(game.gameId)}>
+                    <Button className='btn-block btn-danger' onClick={() => handleDeleteGame(game.id)}>
                       Delete this Game!
                     </Button>
                   </Card.Body>
