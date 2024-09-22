@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Col, Form, Button, Card, Row } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { saveGameIds, getSavedGameIds } from '../utils/localStorage';
-import { searchGames } from '../utils/API';
+import { searchGames, getGameDetail } from '../utils/API';
 import { useMutation } from '@apollo/client';
 import { SAVE_GAME } from '../utils/mutations';
 import { formatDate } from '../utils/formatDate';
@@ -18,7 +18,7 @@ const SearchGames = () => {
   const [platformIds, setPlatformIds] = useState([1, 4, 7, 14, 18, 187]);
 
 
-  // create state to hold saved id values
+  // create state to hold saved gameId values
   const [savedGameIds, setSavedGameIds] = useState(getSavedGameIds());
 
   const [saveGame] = useMutation(SAVE_GAME);
@@ -42,9 +42,9 @@ const SearchGames = () => {
   };
 
   // create function to handle saving a game to our database
-  const handleSaveGame = async (id) => {
+  const handleSaveGame = async (gameId) => {
     // find the game in `searchedGames` state by the matching id
-    const gameToSave = searchedGames.find((game) => game.id === id);
+    const gameToSave = searchedGames.find((game) => game.id === gameId);
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : '';

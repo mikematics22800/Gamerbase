@@ -6,16 +6,16 @@ export const getSavedGameIds = () => {
   return savedGameIds;
 };
 
-export const saveGameIds = (ids) => {
-  if (ids.length) {
-    localStorage.setItem('saved_games', JSON.stringify(ids));
+export const saveGameIds = (gameIdArr) => {
+  if (gameIdArr.length) {
+    localStorage.setItem('saved_games', JSON.stringify(gameIdArr));
 
   } else {
     localStorage.removeItem('saved_games');
   }
 };
 
-export const removeGameId = (id) => {
+export const removeGameId = (gameId) => {
 
   const savedGameIds = localStorage.getItem('saved_games')
     ? JSON.parse(localStorage.getItem('saved_games'))
@@ -25,7 +25,7 @@ export const removeGameId = (id) => {
     return false;
   }
 
-  const updatedSavedGameIds = savedGameIds?.filter((savedGameId) => savedGameId !== id);
+  const updatedSavedGameIds = savedGameIds?.filter((savedGameId) => savedGameId !== gameId);
 
   localStorage.setItem('saved_games', JSON.stringify(updatedSavedGameIds));
 

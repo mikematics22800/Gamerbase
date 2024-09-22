@@ -5,7 +5,6 @@ export const GET_ME = gql`
     me {
       _id
       name
-      email
       games
     }
   }
@@ -14,9 +13,8 @@ export const GET_ME = gql`
 export const SEARCH_GAMES = gql`
   query searchGames($search: String, $platforms: String, $genres: String) {
     searchGames(search: $search, platforms: $platforms, genres: $genres) {
-      _id
-      title
-      dateCreated 
+      gameId
+      name
       platforms
       genres
     }

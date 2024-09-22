@@ -3,23 +3,12 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    me: async (parent, params, context) => {
-      const user = await User.findOne({ _id: context.user._id })
+    me: async (parent, { userId }) => {
+      const user = await User.findOne({ _id: userId});
       if (!user) {
         throw new AuthenticationError;
       }
       return user;
-    },
-    searchGame: async (parent, { title, platforms, genres }) => {
-      const games = await User.find({ games:{ 
-        $elemMatch: {
-          title: { $regex: title, $options: 'i' },
-          platforms: { $in: platforms },
-          genres: { $in: genres }
-        } 
-      } 
-    });
-      return games;
     }
   },
   Mutation: {
@@ -46,13 +35,18 @@ const resolvers = {
       return { token, user };
     },
     // Add a third argument to the resolver to access data in our `context`
-    saveGame: async (parent, { game }, context) => {
+    saveGame: async (parent, { userId, game }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       if (context.user) {
         return User.findOneAndUpdate(
-          { _id: context.user._id },
-          {$addToSet: { games: game }},
-          {newew: true, runValidators: true}
+          { _id: userId },
+          {
+            $addToSet: { games: game },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
         );
       }
       // If user attempts to execute this mutation and isn't logged in, throw an error
