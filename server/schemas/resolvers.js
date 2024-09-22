@@ -3,13 +3,24 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    me: async (parent, { id }) => {
-      const user = await User.findOne({ _id: id});
+    me: async (parent, params, context) => {
+      const user = await User.findOne({ _id: context.user._id })
       if (!user) {
         throw new AuthenticationError;
       }
       return user;
     },
+    searchGame: async (parent, { title, platforms, genres }) => {
+      const games = await User.find({ games:{ 
+        $elemMatch: {
+          title: { $regex: title, $options: 'i' },
+          platforms: { $in: platforms },
+          genres: { $in: genres }
+        } 
+      } 
+    });
+      return games;
+    }
   },
   Mutation: {
     login: async (parent, { email, password }) => {

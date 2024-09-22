@@ -2,28 +2,21 @@ import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
 import { REMOVE_GAME } from '../utils/mutations';
-
-import {
-  Container,
-  Card,
-  Button,
-  Row,
-  Col
-} from 'react-bootstrap';
-
+import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { removeGameId } from '../utils/localStorage';
 
 const SavedGames = () => {
-  const [userData, setUserData] = useState({});
-  const {loading, data} = useQuery(GET_ME)
+  const [userData, setUserData] = useState({ savedGames: [] }); // Initialize with an empty array
+  const { loading, data } = useQuery(GET_ME);
   const [removeGame] = useMutation(REMOVE_GAME);
 
   useEffect(() => {
-    if (data) {
-      setUserData(data);
+    if (data && data.getMe) {
+      setUserData(data.getMe); // Ensure you are accessing the correct property
     }
-  }, [])
+  }, [data]);
+
 
   // create function that accepts the game's mongo _id value as param and deletes the game from the database
   const handleDeleteGame = async (id) => {
@@ -40,26 +33,26 @@ const SavedGames = () => {
       setUserData(user);
       // upon success, remove game's id from localStorage
       removeGameId(id);
+      
     } catch (err) {
-      console.error(err);
+      console.error('Error deleting game:', err);
     }
   };
 
-  // if data isn't here yet, say so
   if (loading) {
     return <h2>LOADING...</h2>;
   }
 
   return (
     <>
-      <div fluid className="text-light bg-dark p-5">
-        <Container>
+      <div className="text-light bg-dark p-5">
+        <Container fluid>
           <h1>Viewing saved games!</h1>
         </Container>
       </div>
       <Container>
         <h2 className='pt-5'>
-          {userData.savedGames.length
+          {userData.savedGames && userData.savedGames.length
             ? `Viewing ${userData.savedGames.length} saved ${userData.savedGames.length === 1 ? 'game' : 'games'}:`
             : 'You have no saved games!'}
         </h2>

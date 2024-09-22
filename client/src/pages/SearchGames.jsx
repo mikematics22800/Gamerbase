@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { Container, Col, Form, Button, Card, Row } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { saveGameIds, getSavedGameIds } from '../utils/localStorage';
-import { searchGames, getGameDetail } from '../utils/API';
+import { searchGames } from '../utils/API';
 import { useMutation } from '@apollo/client';
 import { SAVE_GAME } from '../utils/mutations';
 import { formatDate } from '../utils/formatDate';
 
 const SearchGames = () => {
-  // create state for holding returned RAWG api data
+  // create state for holding returned google api data
   const [searchedGames, setSearchedGames] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
@@ -47,8 +47,7 @@ const SearchGames = () => {
     const gameToSave = searchedGames.find((game) => game.id === id);
 
     // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
+    const token = Auth.loggedIn() ? Auth.getToken() : '';
     if (!token) {
       return false;
     }
