@@ -1,10 +1,18 @@
 const typeDefs = `
+  type Game {
+    _id: ID
+    title: String
+    dateCreated: String
+    platforms: [String]
+    genres: [String]
+  }
+
   type User {
     _id: ID
     name: String
     email: String
     password: String
-    games: [String]
+    games: [Game]
   }
 
   type Auth {
@@ -19,8 +27,8 @@ const typeDefs = `
   type Mutation {
     addUser(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    saveGame(userId: ID!, game: String!): User
-    removeGame(game: String!): User
+    saveGame(game: Game!): User
+    removeGame(gameId: String!): User
   }
 `;
 

@@ -8,11 +8,3 @@ export const searchGames = ({search, platforms, genres}) => {
   }
   return fetch(`https://api.rawg.io/api/games?key=${key}&search=${search}&platforms=${platforms}${genre}`)
 };
-
-export const getGameDetail = (gameId) => {
-  return fetch(`https://api.rawg.io/api/games/${gameId}?key=${key}`)
-};
-
-
-
-

@@ -18,7 +18,7 @@ const SearchGames = () => {
   const [platformIds, setPlatformIds] = useState([1, 4, 7, 14, 18, 187]);
 
 
-  // create state to hold saved gameId values
+  // create state to hold saved id values
   const [savedGameIds, setSavedGameIds] = useState(getSavedGameIds());
 
   const [saveGame] = useMutation(SAVE_GAME);
@@ -42,9 +42,9 @@ const SearchGames = () => {
   };
 
   // create function to handle saving a game to our database
-  const handleSaveGame = async (gameId) => {
+  const handleSaveGame = async (id) => {
     // find the game in `searchedGames` state by the matching id
-    const gameToSave = searchedGames.find((game) => game.id === gameId);
+    const gameToSave = searchedGames.find((game) => game.id === id);
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
