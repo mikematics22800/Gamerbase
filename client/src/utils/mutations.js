@@ -8,6 +8,14 @@ export const LOGIN_USER = gql`
         _id
         name
         email   
+        games {
+          _id
+          title
+          releaseDate
+          platforms 
+          genres 
+          image
+        }
         gameCount  
       }
     }
@@ -22,6 +30,14 @@ export const ADD_USER = gql`
         _id
         name
         email
+        games {
+          _id
+          title
+          releaseDate
+          platforms 
+          genres 
+          image
+        }        
         gameCount
       }
     }
