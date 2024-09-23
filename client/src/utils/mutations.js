@@ -31,7 +31,7 @@ export const ADD_USER = gql`
         name
         email
         games {
-          _id
+          id
           title
           releaseDate
           platforms 
@@ -45,13 +45,13 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_GAME = gql`
-  mutation addGame($id: ID!, $game: String!) {
-    addGame(id: $id, game: $game) 
+  mutation saveGame($game: GameInput!) {
+    saveGame(game: $game) 
   }
 `;
 
 export const REMOVE_GAME = gql`
-  mutation removeGame($game: String!) {
-    removeGame(game: $game)
+  mutation removeGame($gameId: String!) {
+    removeGame(gameId: $gameId)
   }
 `;

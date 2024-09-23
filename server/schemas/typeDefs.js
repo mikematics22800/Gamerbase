@@ -1,6 +1,6 @@
 const typeDefs = `
   type Game {
-    _id: ID!
+    id: ID!
     title: String!
     releaseDate: String!
     platforms: [String]!
@@ -27,7 +27,7 @@ const typeDefs = `
   }
 
   input GameInput {
-    _id: ID!
+    id: ID!
     title: String!
     releaseDate: String!
     platforms: [String!]!
@@ -39,7 +39,7 @@ const typeDefs = `
     addUser(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     saveGame(game: GameInput!): User
-    removeGame(id: ID!): User
+    removeGame(gameId: ID!): User
   }
 `;
 
