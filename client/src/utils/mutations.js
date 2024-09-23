@@ -7,8 +7,8 @@ export const LOGIN_USER = gql`
       user {
         _id
         name
-        email
-        games
+        email   
+        gameCount  
       }
     }
   }
@@ -22,7 +22,7 @@ export const ADD_USER = gql`
         _id
         name
         email
-        games
+        gameCount
       }
     }
   }

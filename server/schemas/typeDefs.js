@@ -13,7 +13,8 @@ const typeDefs = `
     name: String!
     email: String!
     password: String!
-    games: [Game]
+    games: [Game]!
+    gameCount: Int!
   }
 
   type Auth {
@@ -29,8 +30,8 @@ const typeDefs = `
     _id: ID!
     title: String!
     releaseDate: String!
-    platforms: [String]!
-    genres: [String]!
+    platforms: [String!]!
+    genres: [String!]!
     image: String
   }
 

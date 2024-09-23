@@ -26,13 +26,13 @@ const LoginForm = () => {
       e.preventDefault();
       e.stopPropagation();
     }
+    
     try {
-      const { email, password } = userFormData;
       const { data } = await loginUser({
-        variables: { email, password }
+        variables: { ...userFormData },
       });
-      const { user, token } = data.login;
-      Auth.login(token);
+      const { token, user } = data.login;
+      Auth.login(user, token);
       window.location.assign('/');
     } catch(err) {
       console.error(err);

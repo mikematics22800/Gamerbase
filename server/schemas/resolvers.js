@@ -43,10 +43,10 @@ const resolvers = {
           { $addToSet: { games: game }},
           { new: true, runValidators: true}
         );
-        return
+      } else {
+        // If user attempts to execute this mutation and isn't logged in, throw an error
+        throw AuthenticationError;
       }
-      // If user attempts to execute this mutation and isn't logged in, throw an error
-      throw AuthenticationError;
     },
     // Make it so a logged in user can only remove a game from their own user
     removeGame: async (parent, { game }, context) => {
@@ -56,9 +56,9 @@ const resolvers = {
           { $pull: { games: game } },
           { new: true }
         );
-        return
+      } else {
+        throw AuthenticationError;
       }
-      throw AuthenticationError;
     },
   },
 };
