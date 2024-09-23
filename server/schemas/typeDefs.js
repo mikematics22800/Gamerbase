@@ -25,10 +25,19 @@ const typeDefs = `
     savedGames: [Game]
   }
 
+  input GameInput {
+    _id: ID!
+    title: String!
+    releaseDate: String!
+    platforms: [String]!
+    genres: [String]!
+    image: String
+  }
+
   type Mutation {
     addUser(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    saveGame(game: Game!): User
+    saveGame(game: GameInput!): User
     removeGame(id: ID!): User
   }
 `;

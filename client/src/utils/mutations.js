@@ -30,7 +30,7 @@ export const ADD_USER = gql`
 
 export const SAVE_GAME = gql`
   mutation addGame($id: ID!, $game: String!) {
-    addGame(userId: $id, game: $game) 
+    addGame(id: $id, game: $game) 
   }
 `;
 

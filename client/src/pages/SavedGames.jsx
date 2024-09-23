@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_ME } from '../utils/queries';
+import { SAVED_GAMES } from '../utils/queries';
 import { REMOVE_GAME } from '../utils/mutations';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import Auth from '../utils/auth';
@@ -8,12 +8,12 @@ import { removeGameId } from '../utils/localStorage';
 
 const SavedGames = () => {
   const [games, setGames] = useState([]); // Initialize with an empty array
-  const { loading, data } = useQuery(GET_ME);
+  const { loading, data } = useQuery(SAVED_GAMES);
   const [removeGame] = useMutation(REMOVE_GAME);
 
   useEffect(() => {
-    if (data && data.getMe) {
-      setGames(data.getMe); // Ensure you are accessing the correct property
+    if (data && data.savedGames) {
+      setGames(data.savedGames); // Ensure you are accessing the correct property
     }
   }, [data]);
 
