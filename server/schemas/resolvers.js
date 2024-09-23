@@ -35,12 +35,12 @@ const resolvers = {
       return { token, user };
     },
     // Add a third argument to the resolver to access data in our `context`
-    saveGame: async (parent, { game }, context) => {
+    saveGame: async (parent, { game: { id, title, dateReleased, platforms, genres, image } }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { games: { ...game } } },
+          { $addToSet: { games: { id, title, dateReleased, platforms, genres, image } } },
           { new: true, runValidators: true}
         );
       
