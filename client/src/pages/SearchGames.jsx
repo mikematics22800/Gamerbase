@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Col, Form, Button, Card, Row } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { saveGameIds, getSavedGameIds } from '../utils/localStorage';
-import { searchGames, getGameDetail } from '../utils/API';
+import { searchGames } from '../utils/API';
 import { useMutation } from '@apollo/client';
 import { SAVE_GAME } from '../utils/mutations';
 import { formatDate } from '../utils/formatDate';
@@ -44,7 +44,7 @@ const SearchGames = () => {
   // create function to handle saving a game to our database
   const handleSaveGame = async (gameId) => {
     // find the game in `searchedGames` state by the matching id
-    const gameToSave = searchedGames.find((game) => game.gameId === gameId);
+    const gameToSave = searchedGames.find((game) => game.id === gameId);
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : '';
@@ -53,6 +53,7 @@ const SearchGames = () => {
     }
 
     try {
+      console.log(token)
       const response = await saveGame(token, gameToSave);
 
       if (!response.ok) {
@@ -60,7 +61,7 @@ const SearchGames = () => {
       }
 
       // if game successfully saves to user's account, save game id to state
-      setSavedGameIds([...savedGameIds, gameToSave.gameId]);
+      setSavedGameIds([...savedGameIds, gameToSave.id]);
     } catch (err) {
       console.error(err);
     }
@@ -216,7 +217,7 @@ const SearchGames = () => {
                       className='btn-block btn-info'
                       onClick={() => handleSaveGame(game.id)}>
                       {savedGameIds?.some((savedGameId) => savedGameId === game.id)
-                        ? 'This game has already been saved!'
+                        ? 'This game is in your library.'
                         : 'Save this Game!'}
                     </Button>
                   )}

@@ -1,22 +1,14 @@
 import { gql } from '@apollo/client';
 
-export const GET_ME = gql`
-  query me {
-    me {
+export const SAVED_GAMES = gql`
+  query savedGames {
+    savedGames {
       _id
-      name
-      games
-    }
-  }
-`;
-
-export const SEARCH_GAMES = gql`
-  query searchGames($search: String, $platforms: String, $genres: String) {
-    searchGames(search: $search, platforms: $platforms, genres: $genres) {
-      gameId
-      name
+      title
+      releaseDate
       platforms
       genres
+      image
     }
   }
 `;
