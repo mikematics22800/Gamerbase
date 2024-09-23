@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Col, Form, Button, Card, Row } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { saveGameIds, getSavedGameIds } from '../utils/localStorage';
-import { searchGames, getGameDetail } from '../utils/API';
+import { searchGames } from '../utils/API';
 import { useMutation } from '@apollo/client';
 import { SAVE_GAME } from '../utils/mutations';
 import { formatDate } from '../utils/formatDate';
