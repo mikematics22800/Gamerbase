@@ -4,7 +4,6 @@ import { SAVED_GAMES } from '../utils/queries';
 import { REMOVE_GAME } from '../utils/mutations';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import Auth from '../utils/auth';
-import { removeGameId } from '../utils/localStorage';
 
 const SavedGames = () => {
   const [games, setGames] = useState([]); // Initialize with an empty array
@@ -19,7 +18,7 @@ const SavedGames = () => {
 
 
   // create function that accepts the game's mongo _id value as param and deletes the game from the database
-  const handleDeleteGame = async (id) => {
+  const handleDeleteGame = async (gameId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -28,12 +27,9 @@ const SavedGames = () => {
 
     try {
       const user = await removeGame({
-        variables: { id }
+        variables: { gameId },
       });
-      setGames(user);
-      // upon success, remove game's id from localStorage
-      removeGameId(id);
-      
+      setGames(user); 
     } catch (err) {
       console.error('Error deleting game:', err);
     }
