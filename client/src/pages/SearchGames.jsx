@@ -46,6 +46,14 @@ const SearchGames = () => {
   const handleSaveGame = async (game) => {
     const token = Auth.loggedIn() ? Auth.getToken() : '';
     console.log(game)
+
+  const handleSaveGame = async (gameId) => {
+    // find the game in `searchedGames` state by the matching id
+    const gameToSave = searchedGames.find((game) => game.id === gameId);
+
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    
     if (!token) {
       return false;
     }
