@@ -37,13 +37,15 @@ const resolvers = {
     // Add a third argument to the resolver to access data in our `context`
     saveGame: async (parent, { game: { id, title, dateReleased, platforms, genres, image } }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
-
+      if (context.user) {
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { games: { id, title, dateReleased, platforms, genres, image } } },
           { new: true, runValidators: true}
         );
-      
+      } else {
+        throw AuthenticationError;
+      }
     },
     // Make it so a logged in user can only remove a game from their own user
     removeGame: async (parent, { gameId }, context) => {
