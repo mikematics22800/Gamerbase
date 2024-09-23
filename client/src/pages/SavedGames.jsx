@@ -7,13 +7,13 @@ import Auth from '../utils/auth';
 import { removeGameId } from '../utils/localStorage';
 
 const SavedGames = () => {
-  const [userData, setUserData] = useState({ savedGames: [] }); // Initialize with an empty array
+  const [games, setGames] = useState([]); // Initialize with an empty array
   const { loading, data } = useQuery(GET_ME);
   const [removeGame] = useMutation(REMOVE_GAME);
 
   useEffect(() => {
     if (data && data.getMe) {
-      setUserData(data.getMe); // Ensure you are accessing the correct property
+      setGames(data.getMe); // Ensure you are accessing the correct property
     }
   }, [data]);
 
@@ -30,7 +30,7 @@ const SavedGames = () => {
       const user = await removeGame({
         variables: { id }
       });
-      setUserData(user);
+      setGames(user);
       // upon success, remove game's id from localStorage
       removeGameId(id);
       
@@ -52,12 +52,12 @@ const SavedGames = () => {
       </div>
       <Container>
         <h2 className='pt-5'>
-          {userData.savedGames && userData.savedGames.length
-            ? `Viewing ${userData.savedGames.length} saved ${userData.savedGames.length === 1 ? 'game' : 'games'}:`
+          {games.games && games.games.length
+            ? `Viewing ${games.games.length} saved ${games.games.length === 1 ? 'game' : 'games'}:`
             : 'You have no saved games!'}
         </h2>
         <Row>
-          {userData.savedGames.map((game) => {
+          {games.games.map((game) => {
             return (
               <Col key={game.id} md="4">
                 <Card border='dark'>
