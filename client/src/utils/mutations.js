@@ -8,6 +8,14 @@ export const LOGIN_USER = gql`
         _id
         name
         email   
+        games {
+          _id
+          title
+          releaseDate
+          platforms 
+          genres 
+          image
+        }
         gameCount  
       }
     }
@@ -22,6 +30,14 @@ export const ADD_USER = gql`
         _id
         name
         email
+        games {
+          id
+          title
+          releaseDate
+          platforms 
+          genres 
+          image
+        }        
         gameCount
       }
     }
@@ -29,13 +45,13 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_GAME = gql`
-  mutation addGame($id: ID!, $game: String!) {
-    addGame(id: $id, game: $game) 
+  mutation saveGame($game: GameInput!) {
+    saveGame(game: $game) 
   }
 `;
 
 export const REMOVE_GAME = gql`
-  mutation removeGame($game: String!) {
-    removeGame(game: $game)
+  mutation removeGame($gameId: String!) {
+    removeGame(gameId: $gameId)
   }
 `;

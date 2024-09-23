@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container, Col, Form, Button, Card, Row } from 'react-bootstrap';
 import Auth from '../utils/auth';
-import { saveGameIds, getSavedGameIds } from '../utils/localStorage';
 import { searchGames } from '../utils/API';
 import { useMutation } from '@apollo/client';
 import { SAVE_GAME } from '../utils/mutations';
@@ -17,16 +16,9 @@ const SearchGames = () => {
   // platforms set to all modern platforms by default
   const [platformIds, setPlatformIds] = useState([1, 4, 7, 14, 18, 187]);
 
-
-  // create state to hold saved gameId values
-  const [savedGameIds, setSavedGameIds] = useState(getSavedGameIds());
-
   const [saveGame] = useMutation(SAVE_GAME);
 
-  // set up useEffect hook to save `savedGameIds` list to localStorage on component unmount
-  useEffect(() => {
-    return () => saveGameIds(savedGameIds);
-  }, [savedGameIds]);
+  const user = localStorage.getItem('user');
 
   // create method to search for games and set state on form submit
   const handleFormSubmit = async (e) => {
@@ -34,34 +26,43 @@ const SearchGames = () => {
     try {
       const response = await searchGames({ search: searchInput, platforms: platformIds.toString(), genres: genreIds.toString() });
       const data = await response.json();
-      console.log(data);
-      setSearchedGames(data.results)
+      console.log(data)
+      const games = data.results.map((game) => ({
+        id: game.id,
+        title: game.name,
+        releaseDate: game.released,
+        platforms: game.platforms,
+        genres: game.genres,
+        image: game.background_image
+      }))
+      console.log(games)
+      setSearchedGames(games)
     } catch (err) {
       console.error(err);
     }
   };
 
   // create function to handle saving a game to our database
+
   const handleSaveGame = async (gameId) => {
     // find the game in `searchedGames` state by the matching id
     const gameToSave = searchedGames.find((game) => game.id === gameId);
 
     // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : '';
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    
     if (!token) {
       return false;
     }
 
     try {
-      console.log(token)
-      const response = await saveGame(token, gameToSave);
+      const response = await saveGame({
+        variables: { game }
+      });
 
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
-
-      // if game successfully saves to user's account, save game id to state
-      setSavedGameIds([...savedGameIds, gameToSave.id]);
     } catch (err) {
       console.error(err);
     }
@@ -199,10 +200,10 @@ const SearchGames = () => {
           return (
             <Col md="4" key={game.id}>
               <Card border='dark' className='game-card'>
-                <Card.Img src={game.background_image} alt='box art' variant='top' className="game-card-img"/>
+                <Card.Img src={game.image} alt='box art' variant='top' className="game-card-img"/>
                 <Card.Body className="game-card-body">
-                  <h4>{game.name}</h4>
-                  <p>Released {formatDate(game.released)}</p>
+                  <h4>{game.title}</h4>
+                  <p>Released {formatDate(game.releaseDate)}</p>
                   <div className='list'>
                     <p>Platforms:&nbsp;</p>
                     {platformList}
@@ -213,10 +214,10 @@ const SearchGames = () => {
                   </div>
                   {Auth.loggedIn() && (
                     <Button
-                      disabled={savedGameIds?.some((savedGameId) => savedGameId === game.id)}
+                      disabled={user.games?.some((savedGame) => savedGame === game)}
                       className='btn-block btn-info'
-                      onClick={() => handleSaveGame(game.id)}>
-                      {savedGameIds?.some((savedGameId) => savedGameId === game.id)
+                      onClick={() => handleSaveGame(game)}>
+                      {user.games?.some((savedGame) => savedGame === game)
                         ? 'This game is in your library.'
                         : 'Save this Game!'}
                     </Button>
