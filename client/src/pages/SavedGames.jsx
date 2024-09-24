@@ -48,12 +48,12 @@ const SavedGames = () => {
       </div>
       <Container>
         <h2 className='pt-5'>
-          {games.games && games.games.length
-            ? `Viewing ${games.games.length} saved ${games.games.length === 1 ? 'game' : 'games'}:`
+          {games && games.length
+            ? `Viewing ${games.length} saved ${games.length === 1 ? 'game' : 'games'}:`
             : 'You have no saved games!'}
         </h2>
         <Row>
-          {games.games.map((game) => {
+          {games.map((game) => {
             return (
               <Col key={game.id} md="4">
                 <Card border='dark'>
