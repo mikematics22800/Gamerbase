@@ -26,12 +26,13 @@ const SearchGames = () => {
     try {
       const response = await searchGames({ search: searchInput, platforms: platformIds.toString(), genres: genreIds.toString() });
       const data = await response.json();
+      console.log(data);
       const games = data.results.map((game) => ({
         id: game.id,
         title: game.name,
         releaseDate: game.released,
-        platforms: game.platforms,
-        genres: game.genres,
+        platforms: game.platforms.map((child) => child.platform.name),
+        genres: game.genres.map((genre) => genre.name),
         image: game.background_image
       }))
       setSearchedGames(games)
@@ -43,6 +44,7 @@ const SearchGames = () => {
   // create function to handle saving a game to our database
   const handleSaveGame = async (game) => {
     // get token
+    console.log(game)
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     
     if (!token) {
@@ -51,7 +53,7 @@ const SearchGames = () => {
 
     try {
       const response = await saveGame({
-        variables: { game }
+        variables: { ...game }
       });
 
       if (!response.ok) {
@@ -189,8 +191,6 @@ const SearchGames = () => {
       </div>
       <Row className='game-cards'>
         {searchedGames?.map((game) => {
-          const platformList = game.platforms?.map((platform) => platform.platform.name).join(', ');
-          const genreList = game.genres?.map((genre) => genre.name).join(', ');
           return (
             <Col md="4" key={game.id}>
               <Card border='dark' className='game-card'>
@@ -200,18 +200,18 @@ const SearchGames = () => {
                   <p>Released {formatDate(game.releaseDate)}</p>
                   <div className='list'>
                     <p>Platforms:&nbsp;</p>
-                    {platformList}
+                    {game.platforms?.map((platform) => platform).join(', ')}
                   </div>
                   <div className='list'>
                     <p>Genres:&nbsp;</p>
-                    {genreList}
+                    {game.genres?.map((genre) => genre).join(', ')}
                   </div>
                   {Auth.loggedIn() && (
                     <Button
-                      disabled={user.games?.some((savedGame) => savedGame === game)}
+                      disabled={user.games?.some((savedGame) => savedGame.id === game.id)}
                       className='btn-block btn-info'
                       onClick={() => handleSaveGame(game)}>
-                      {user.games?.some((savedGame) => savedGame === game)
+                      {user.games?.some((savedGame) => savedGame.id === game.id)
                         ? 'This game is in your library.'
                         : 'Save this Game!'}
                     </Button>

@@ -14,7 +14,7 @@ const gameSchema = new Schema({
     type: String,
     required: true,
   },
-  platforms: {
+  platformIds: {
     type: [String],
     required: true,
   },
