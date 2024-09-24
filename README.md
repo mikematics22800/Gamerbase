@@ -8,6 +8,8 @@
 
 - [Installation](#installation)
 - [Features](#features)
+- [Visuals](#visuals)
+- [Contributions](#contributions)
 - [Authors](#authors)
 - [License](#license)
 
@@ -26,6 +28,16 @@ This project was developed using the MERN Stack Method.
 It uses Mongodb to store user data.
 Uses RAWG Api to fetch game data.
 Uses React to build the UI.
+
+## Visuals
+
+![Screenshot1](./Assets/Visual1.png)
+ <!--![Screenshot2](./Assets/Visual1.png)
+![DEMO](./Assets/Visual1.png) -->
+
+
+## Contributions
+If you would like to contribute please fork the repo and clone it locally, then make your own branch and open a pull request.
 
 ## Authors
 
