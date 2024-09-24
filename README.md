@@ -4,7 +4,7 @@
 
  This project uses the MERN Stack to build an reactive Video Game Database in which users can search and use search filters to add favored games to their profile. <!--they like when you add a link to the deployed site here -->
 
-## Table of Contents 
+## Table of Contents
 
 - [Installation](#installation)
 - [Features](#features)
@@ -17,8 +17,8 @@
 2. Clone the repository
 3. In the terminal, go to the cloned repository location
 4. Enter the following command to install all the dependencies: `npm run install`
-5. Enter the following command to run the program: `npm run dev`
-6. Opens in localhost 3001
+5. Enter the following command to run the program: `npm run develop`
+6. Opens in localhost 3000
 
 ## Features
 
@@ -35,10 +35,9 @@ Uses React to build the UI.
 - [Jean Habyiaremye](https://github.com/jahdona)
 - [Rashawn Hall](https://github.com/TheR16H)
 
-
 ## License
 
-MIT License 
+MIT License
 
 Copyright (c) 2024
 
