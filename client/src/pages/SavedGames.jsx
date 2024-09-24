@@ -12,10 +12,9 @@ const SavedGames = () => {
 
   useEffect(() => {
     if (data && data.savedGames) {
-      setGames(data.savedGames); // Ensure you are accessing the correct property
+      setGames(data.savedGames); // Set games directly to the array of saved games
     }
   }, [data]);
-
 
   // create function that accepts the game's mongo _id value as param and deletes the game from the database
   const handleDeleteGame = async (gameId) => {
@@ -48,26 +47,17 @@ const SavedGames = () => {
       </div>
       <Container>
         <h2 className='pt-5'>
-          {games.games && games.games.length
-            ? `Viewing ${games.games.length} saved ${games.games.length === 1 ? 'game' : 'games'}:`
+          {games.length
+            ? `Viewing ${games.length} saved ${games.length === 1 ? 'game' : 'games'}:`
             : 'You have no saved games!'}
         </h2>
         <Row>
-          {games.games.map((game) => {
+          {games.map((game) => {
             return (
-              <Col key={game.id} md="4">
-                <Card border='dark'>
-                  {game.image ? <Card.Img src={game.image} alt={`The cover for ${game.title}`} variant='top' /> : null}
-                  <Card.Body>
-                    <Card.Title>{game.title}</Card.Title>
-                    <p className='small'>Authors: {game.authors}</p>
-                    <Card.Text>{game.description}</Card.Text>
-                    <Button className='btn-block btn-danger' onClick={() => handleDeleteGame(game.id)}>
-                      Delete this Game!
-                    </Button>
-                  </Card.Body>
-                </Card>
-              </Col>
+              <div key={game.id}>
+                <h3>{game.title}</h3>
+                <button onClick={() => handleDeleteGame(game.id)}>Delete Game</button>
+              </div>
             );
           })}
         </Row>
