@@ -5,11 +5,10 @@ export const LOGIN_USER = gql`
     login(email: $email, password: $password) {
       token
       user {
-        _id
         name
         email   
         games {
-          _id
+          id  
           title
           releaseDate
           platforms 
@@ -27,7 +26,6 @@ export const ADD_USER = gql`
     addUser(name: $name, email: $email, password: $password) {
       token
       user {
-        _id
         name
         email
         games {

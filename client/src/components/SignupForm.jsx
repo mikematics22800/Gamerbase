@@ -35,6 +35,7 @@ const SignupForm = () => {
       });
       const { user, token } = data.addUser;
       Auth.login(user, token);
+      window.location.assign('/');
     } catch (err) {
       console.error(err);
       setShowAlert(true);

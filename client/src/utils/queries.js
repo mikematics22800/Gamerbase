@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 export const SAVED_GAMES = gql`
   query savedGames {
     savedGames {
-      _id
+      id
       title
       releaseDate
       platforms

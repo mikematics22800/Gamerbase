@@ -26,7 +26,6 @@ const SearchGames = () => {
     try {
       const response = await searchGames({ search: searchInput, platforms: platformIds.toString(), genres: genreIds.toString() });
       const data = await response.json();
-      console.log(data)
       const games = data.results.map((game) => ({
         id: game.id,
         title: game.name,
@@ -35,7 +34,6 @@ const SearchGames = () => {
         genres: game.genres,
         image: game.background_image
       }))
-      console.log(games)
       setSearchedGames(games)
     } catch (err) {
       console.error(err);
@@ -43,11 +41,7 @@ const SearchGames = () => {
   };
 
   // create function to handle saving a game to our database
-
-  const handleSaveGame = async (gameId) => {
-    // find the game in `searchedGames` state by the matching id
-    const gameToSave = searchedGames.find((game) => game.id === gameId);
-
+  const handleSaveGame = async (game) => {
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     
