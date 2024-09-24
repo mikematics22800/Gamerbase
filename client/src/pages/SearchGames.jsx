@@ -26,7 +26,6 @@ const SearchGames = () => {
     try {
       const response = await searchGames({ search: searchInput, platforms: platformIds.toString(), genres: genreIds.toString() });
       const data = await response.json();
-      console.log(data)
       const games = data.results.map((game) => ({
         id: game.id,
         title: game.name,
@@ -35,7 +34,6 @@ const SearchGames = () => {
         genres: game.genres,
         image: game.background_image
       }))
-      console.log(games)
       setSearchedGames(games)
     } catch (err) {
       console.error(err);
