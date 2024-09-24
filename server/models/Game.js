@@ -24,7 +24,6 @@ const gameSchema = new Schema({
   },
   image: {
     type: String,
-    required: true,
   }
 }, { _id: false });
 

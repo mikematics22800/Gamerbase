@@ -5,7 +5,7 @@ const typeDefs = `
     releaseDate: String!
     platforms: [String]!
     genres: [String]!
-    image: String!
+    image: String
   }
 
   type User {
