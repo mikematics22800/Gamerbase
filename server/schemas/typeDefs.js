@@ -1,6 +1,6 @@
 const typeDefs = `
   type Game {
-    id: ID!
+    id: Int!
     title: String!
     releaseDate: String!
     platforms: [String!]!
@@ -27,7 +27,7 @@ const typeDefs = `
   }
 
   input GameInput {
-    id: ID!
+    id: Int!
     title: String!
     releaseDate: String!
     platforms: [String!]!

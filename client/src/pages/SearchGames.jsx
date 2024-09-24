@@ -200,11 +200,11 @@ const SearchGames = () => {
                   <p>Released {formatDate(game.releaseDate)}</p>
                   <div className='list'>
                     <p>Platforms:&nbsp;</p>
-                    {game.platforms?.map((platform) => platform).join(', ')}
+                    {game.platforms.join(' ')}
                   </div>
                   <div className='list'>
                     <p>Genres:&nbsp;</p>
-                    {game.genres?.map((genre) => genre).join(', ')}
+                    {game.genres.join(' ')}
                   </div>
                   {Auth.loggedIn() && (
                     <Button
