@@ -50,17 +50,20 @@ const SearchGames = () => {
     if (!token) {
       return false;
     }
-
+    
     try {
+      console.log('Saving game with data:', game); // Log the game data
       const response = await saveGame({
         variables: { ...game }
       });
-
+    
       if (!response.ok) {
+        const errorDetails = await response.json();
+        console.error('Error details:', errorDetails);
         throw new Error('something went wrong!');
       }
     } catch (err) {
-      console.error(err);
+      console.error('Error:', err);
     }
   };
 
