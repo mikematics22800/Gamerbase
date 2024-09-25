@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Game } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -37,24 +37,15 @@ const resolvers = {
     // Add a third argument to the resolver to access data in our `context`
     saveGame: async (parent, { id, title, releaseDate, platforms, genres, image }, context) => {
       if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { games: { id, title, releaseDate, platforms, genres, image } }},
-          { new: true, runValidators: true }
-        );
-        return updatedUser;
+        await Game.create({ userId: context.user._id, id, title, releaseDate, platforms, genres, image });
       } else {
         throw new AuthenticationError('You need to be logged in!');
       }
     },
     // Make it so a logged in user can only remove a game from their own user
-    removeGame: async (parent, { gameId }, context) => {
+    removeGame: async (parent, { id }, context) => {
       if (context.user) {
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { games: { id: gameId } } },
-          { new: true }
-        );
+        await Game.findOneAndDelete({ userId: context.user._id, id });
       } else {
         throw AuthenticationError;
       }

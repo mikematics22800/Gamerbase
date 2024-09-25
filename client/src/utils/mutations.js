@@ -6,16 +6,7 @@ export const LOGIN_USER = gql`
       token
       user {
         name
-        email   
-        games {
-          id  
-          title
-          releaseDate
-          platforms 
-          genres 
-          image
-        }
-        gameCount  
+        email  
       }
     }
   }
@@ -28,28 +19,19 @@ export const ADD_USER = gql`
       user {
         name
         email
-        games {
-          id
-          title
-          releaseDate
-          platforms 
-          genres 
-          image
-        }        
-        gameCount
       }
     }
   }
 `;
 
 export const SAVE_GAME = gql`
-  mutation saveGame($id: Int!, $title: String!, $releaseDate: String!, $platforms: [String!]!, $genres: [String!]!, $image: String!) {
-    saveGame(id: $id, title: $title, releaseDate: $releaseDate, platforms: $platforms, genres: $genres, image: $image)
+  mutation saveGame($userId: ID!, $id: Int!, $title: String!, $releaseDate: String!, $platforms: [String!]!, $genres: [String!]!, $image: String!) {
+    saveGame(userId: $userId, id: $id, title: $title, releaseDate: $releaseDate, platforms: $platforms, genres: $genres, image: $image)
   }
 `;
 
 export const REMOVE_GAME = gql`
-  mutation removeGame($id: Int!) {
-    removeGame(id: $id)
+  mutation removeGame($userId: ID!, $id: Int!) {
+    removeGame(userId: $userId, id: $id)
   }
 `;

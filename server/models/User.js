@@ -20,9 +20,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-    },
-    // set games to be an array of data that adheres to the gameSchema
-    games: [gameSchema],
+    }
   },
   // set this to use virtual below
   {
@@ -46,11 +44,6 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
-
-// when we query a user, we'll also get another field called `gameCount` with the number of saved games we have
-userSchema.virtual('gameCount').get(function () {
-  return this.games.length;
-});
 
 const User = model('User', userSchema);
 
