@@ -1,10 +1,11 @@
+
 const typeDefs = `
   type Game {
-    id: Int!
+    id: ID!
     title: String!
     releaseDate: String!
-    platforms: [String!]!
-    genres: [String!]!
+    platforms: [String]!
+    genres: [String]!
     image: String!
   }
 
@@ -26,20 +27,11 @@ const typeDefs = `
     savedGames: [Game]
   }
 
-  input GameInput {
-    id: Int!
-    title: String!
-    releaseDate: String!
-    platforms: [String!]!
-    genres: [String!]!
-    image: String!
-  }
-
   type Mutation {
     addUser(name: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    saveGame(game: GameInput!): User
-    removeGame(gameId: ID!): User
+    saveGame(id: Int!, title: String!, releaseDate: String!, platforms: [String!]!, genres: [String!]!, image: String!): User
+    removeGame(id: Int!): User
   }
 `;
 

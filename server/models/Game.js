@@ -2,10 +2,6 @@ const { Schema } = require('mongoose');
 
 // This is a subdocument schema, it won't become its own model but we'll use it as the schema for the User's `savedGames` array in User.js
 const gameSchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-  },
   title: {
     type: String,
     required: true,
@@ -14,7 +10,7 @@ const gameSchema = new Schema({
     type: String,
     required: true,
   },
-  platformIds: {
+  platforms: {
     type: [String],
     required: true,
   },
@@ -26,6 +22,6 @@ const gameSchema = new Schema({
     type: String,
     required: true,
   }
-}, { _id: false });
+});
 
 module.exports = gameSchema;

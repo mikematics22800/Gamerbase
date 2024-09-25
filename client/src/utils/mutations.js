@@ -43,13 +43,13 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_GAME = gql`
-  mutation saveGame($game: GameInput!) {
-    saveGame(game: $game) 
+  mutation saveGame($id: Int!, $title: String!, $releaseDate: String!, $platforms: [String!]!, $genres: [String!]!, $image: String!) {
+    saveGame(id: $id, title: $title, releaseDate: $releaseDate, platforms: $platforms, genres: $genres, image: $image)
   }
 `;
 
 export const REMOVE_GAME = gql`
-  mutation removeGame($gameId: String!) {
-    removeGame(gameId: $gameId)
+  mutation removeGame($id: Int!) {
+    removeGame(id: $id)
   }
 `;

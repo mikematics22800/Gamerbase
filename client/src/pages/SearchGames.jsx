@@ -44,7 +44,6 @@ const SearchGames = () => {
   // create function to handle saving a game to our database
   const handleSaveGame = async (game) => {
     // get token
-    console.log(game)
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     
     if (!token) {
