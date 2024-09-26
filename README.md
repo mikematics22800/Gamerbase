@@ -32,8 +32,8 @@ Uses React to build the UI.
 ## Visuals
 
 ![Screenshot1](./Assets/Visual1.png)
- <!--![Screenshot2](./Assets/Visual1.png)
-![DEMO](./Assets/Visual1.png) -->
+![Screenshot2](./Assets/Visual2.png)
+ <!--![DEMO](./Assets/Visual1.png) -->
 
 
 ## Contributions
@@ -70,7 +70,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-## How to Contribute
-
-If you created an application or package and would like other developers to contribute it, you can include guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own if you'd prefer.
